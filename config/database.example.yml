@@ -24,6 +24,8 @@ default: &default
 development:
   <<: *default
   database: rails_boilerplate_development
+  username: moshiur
+  password: place_your_password_here
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
