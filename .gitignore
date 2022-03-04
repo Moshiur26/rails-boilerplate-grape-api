@@ -33,3 +33,11 @@
 /config/database.yml
 /config/secret.yml
 /.env
+
+.idea
+.generators
+.rakeTasks
+.rbenv-vars
+
+# Ignore environment specific master key for decrypting credentials
+/config/credentials/*.key

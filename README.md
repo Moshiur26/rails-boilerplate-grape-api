@@ -32,4 +32,6 @@ gem 'grape'
 gem 'grape-entity'
 gem 'grape-kaminari'
 gem 'grape_on_rails_routes'
+gem 'devise'
+gem 'devise-jwt'
 ```
