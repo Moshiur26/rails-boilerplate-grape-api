@@ -35,3 +35,8 @@ gem 'grape_on_rails_routes'
 gem 'devise'
 gem 'devise-jwt'
 ```
+
+### Devise configuration
+* rails generate devise:install
+* config.action_mailer.default_url_options = { host: 'localhost', port: 3000 } `add into config/environments/development.rb:`
+* rails generate devise Admin
