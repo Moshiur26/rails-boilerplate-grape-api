@@ -2,27 +2,27 @@
 
 module Admin
     module V1
-      class Users < ThirdPartyService::Base
+      class Admins < ThirdPartyService::Base
         resource '/' do
           params do
             requires :username, type: String
             requires :password, type: String
           end
   
-          desc 'Log in to third_party staff.'
+          desc 'Log in to Admin.'
           route_setting :authentication, optional: true
   
           post 'login' do
-            third_party_user = ThirdPartyUser.find_by(email: params[:username])
-            if third_party_user&.valid_password?(params[:password])
+            admin = Admin.find_by(email: params[:username])
+            if admin&.valid_password?(params[:password])
               success_response_with_json(
                 "Successfully logged in.",
                 HTTP_CODE[:OK],
                 {
                   token: JsonWebToken.encode(sub: third_party_user.id),
-                  name: third_party_user.name,
-                  phone: third_party_user.phone,
-                  username: third_party_user.email,
+                  name: admin.name,
+                  phone: admin.phone,
+                  username: admin.email,
                 }
               )
             else

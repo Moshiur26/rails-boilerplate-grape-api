@@ -33,7 +33,7 @@ module Admin
         def authenticated!
           payload = JsonWebToken.decode(bearer_token)
           payload['exp'] >= Time.now.to_i &&
-            @current_third_party_user = Admin.find_by(id: payload['sub'])
+            @current_admin = Admin.find_by(id: payload['sub'])
         rescue StandardError => ex
           Rails.logger.error "Error occurs during Authentication. Message: #{ex.full_message}"
           error!('Something went wrong', 500)
@@ -46,7 +46,7 @@ module Admin
   
       @error = []
   
-      mount V1::Users
+      mount V1::Admins
   
       HTTP_ERROR = [400, 401, 403, 404, 422, 500, 503, 999].freeze
     end
