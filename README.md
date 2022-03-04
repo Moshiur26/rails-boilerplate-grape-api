@@ -22,3 +22,14 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+### Create Rails App
+`rails new rails-boilerplate --database=postgresql`
+ 
+### Add gem for rapid API development
+```
+gem 'grape'
+gem 'grape-entity'
+gem 'grape-kaminari'
+gem 'grape_on_rails_routes'
+```
