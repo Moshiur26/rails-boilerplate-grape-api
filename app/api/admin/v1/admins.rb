@@ -2,7 +2,7 @@
 
 module Admin
     module V1
-      class Admins < ThirdPartyService::Base
+      class Admins < Admin::Base
         resource '/' do
           params do
             requires :username, type: String

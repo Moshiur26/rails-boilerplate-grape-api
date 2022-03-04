@@ -14,7 +14,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = 'aef341fc9b86f17821ea2842feb8c6b24baec8d0d01f385261fc0ab82652c85c22e2a2f49ff7600e9f00bf47b48ba35a336b87773b7615034ca94b96d3a82286'
+  # config.secret_key = '145187079bd52e3efc9f0a72dd8b87f9b0ebf6d342d30e26b542b22f3b0d4328464965c58e1ef523d8f1bcec40c6ede23a4b67adfe9059d9d02a7bf3cd4730f5'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -46,7 +46,7 @@ Devise.setup do |config|
   # session. If you need permissions, you should implement that in a before filter.
   # You can also supply a hash where the value is a boolean determining whether
   # or not authentication should be aborted when the value is not present.
-  # config.authentication_keys = [:email]
+  config.authentication_keys = [:phone]
 
   # Configure parameters from the request object used for authentication. Each entry
   # given should be a request method and it will automatically be passed to the
@@ -126,7 +126,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '57d12a10c706e9813295b6828fe478ee4a00f440f53321b629090df8923875226d0e987ed0df16489dacafbfff898e754210c8f69262abfe4e4f82286b9aa810'
+  # config.pepper = '2f9efb527d42c41a32f0792fa7c79acc8100bc5a1aacab431f51a89081638d59dd1d627a122cc5483b52df358c1b804cea9a87e2f82f590beeedd8961ec495c5'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -264,6 +264,7 @@ Devise.setup do |config|
   #
   # The "*/*" below is required to match Internet Explorer requests.
   # config.navigational_formats = ['*/*', :html]
+  config.navigational_formats = []
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
@@ -277,10 +278,12 @@ Devise.setup do |config|
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
   #
-  # config.warden do |manager|
-  #   manager.intercept_401 = false
-  #   manager.default_strategies(scope: :user).unshift :some_external_strategy
-  # end
+  config.warden do |manager|
+    # manager.intercept_401 = false
+    # manager.default_strategies(scope: :user).unshift :some_external_strategy
+    manager.strategies.add :jwt, Devise::Strategies::JWT
+    manager.default_strategies(scope: :user).unshift :jwt
+  end
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
@@ -308,4 +311,23 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
+end
+
+module Devise
+  module Strategies
+    class JWT < Base
+      def valid?
+        request.headers['Authorization'].present?
+      end
+      def authenticate!
+        token = request.headers.fetch('Authorization', '').split(' ').last
+        payload = JsonWebToken.decode(token)
+        success! Admin.find(payload['sub'])
+      rescue ::JWT::ExpiredSignature
+        fail! 'Auth token has expired'
+      rescue ::JWT::DecodeError
+        fail! 'Auth token is invalid'
+      end
+    end
+  end
 end
