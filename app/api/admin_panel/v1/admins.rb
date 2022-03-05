@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module Admin
+module AdminPanel
     module V1
-      class Admins < Admin::Base
+      class Admins < AdminPanel::Base
         resource '/' do
           params do
             requires :username, type: String
@@ -32,5 +32,4 @@ module Admin
         end
       end
     end
-  end
-  
+end

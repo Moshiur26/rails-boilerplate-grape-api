@@ -2,8 +2,8 @@ class Admin < ApplicationRecord
     devise :registerable,
          :database_authenticatable,
          :validatable,
-         :jwt_authenticatable,
-         jwt_revocation_strategy: JwtBlacklist
+         :jwt_authenticatable
+         # jwt_revocation_strategy: JwtBlacklist
 
 
     validates :name, :phone, :email, :password, :password_confirmation, presence: true

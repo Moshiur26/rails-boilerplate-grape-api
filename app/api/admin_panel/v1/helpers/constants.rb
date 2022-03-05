@@ -1,4 +1,4 @@
-module Admin::V1::Helpers
+module AdminPanel::V1::Helpers
     module Constants
       HTTP_CODE = {
         OK: 200,

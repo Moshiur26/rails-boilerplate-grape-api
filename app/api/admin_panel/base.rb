@@ -1,11 +1,11 @@
-module Admin
+module AdminPanel
     class Base < Grape::API
       # Contains all the constant that will be used for development
-      include Admin::V1::Helpers::Constants
+      include AdminPanel::V1::Helpers::Constants
       include Grape::Kaminari
   
       # Helpers to send success or failure message to frontend
-      helpers Admin::V1::Helpers::ResponseHelper
+      helpers AdminPanel::V1::Helpers::ResponseHelper
   
       helpers CommonHelper
   
@@ -32,8 +32,8 @@ module Admin
       helpers do
         def authenticated!
           payload = JsonWebToken.decode(bearer_token)
-          payload['exp'] >= Time.now.to_i &&
-            @current_admin = Admin.find_by(id: payload['sub'])
+          # payload['exp'] >= Time.now.to_i &&
+          #   @current_admin = Admin.find_by(id: payload['sub'])
         rescue StandardError => ex
           Rails.logger.error "Error occurs during Authentication. Message: #{ex.full_message}"
           error!('Something went wrong', 500)
