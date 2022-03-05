@@ -32,8 +32,8 @@ module AdminPanel
       helpers do
         def authenticated!
           payload = JsonWebToken.decode(bearer_token)
-          # payload['exp'] >= Time.now.to_i &&
-          #   @current_admin = Admin.find_by(id: payload['sub'])
+          payload['exp'] >= Time.now.to_i &&
+            @current_admin = Admin.find_by(id: payload['sub'])
         rescue StandardError => ex
           Rails.logger.error "Error occurs during Authentication. Message: #{ex.full_message}"
           error!('Something went wrong', 500)
