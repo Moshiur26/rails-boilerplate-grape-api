@@ -25,5 +25,5 @@ module AdminPanel::V1::Helpers
         }
       end
     end
-  end
+end
   

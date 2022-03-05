@@ -17,5 +17,5 @@ module AdminPanel::V1::Helpers
         INTERNAL_SERVER_ERROR: 500
       }.freeze
     end
-  end
+end
   

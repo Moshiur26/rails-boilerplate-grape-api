@@ -19,7 +19,7 @@ module AdminPanel
                 "Successfully logged in.",
                 HTTP_CODE[:OK],
                 {
-                  token: JsonWebToken.encode(sub: third_party_user.id),
+                  token: JsonWebToken.encode(sub: admin.id),
                   name: admin.name,
                   phone: admin.phone,
                   username: admin.email,
