@@ -18,6 +18,9 @@ gem "puma", "~> 5.0"
 gem 'devise'
 gem 'devise-jwt'
 
+# For cross-origin requests
+gem 'rack-cors', '~> 1.1.1'
+
 # Framework for rapid API development
 gem 'grape'
 gem 'grape-entity'
