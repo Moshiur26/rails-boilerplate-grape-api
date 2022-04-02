@@ -23,9 +23,12 @@ Things you may want to cover:
 
 * ...
 
+### Rails 7 replaced byebug with ruby/debug
+`instead of byebug use binding.break`
+
 ### Create Rails App
 `rails new rails-boilerplate --database=postgresql`
- 
+
 ### Add gem for rapid API development
 ```
 # To handle api
@@ -49,4 +52,4 @@ gem 'rack-cors', '~> 1.1.1'
 
 ### Rake-Cors configuration
 * Create new file cors.rb into config/initializers
-* Make configuration into cors.rb to give access required methods & headers
+* Make configuration into cors.rb to give access require methods & headers
