@@ -49,6 +49,7 @@ module UserPanel
 
     @error = []
 
+    mount V1::Users
 
     HTTP_ERROR = [400, 401, 403, 404, 422, 500, 503, 999].freeze
   end
