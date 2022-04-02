@@ -24,7 +24,7 @@ class JsonWebToken
   def self.single_login_token_encode(user)
     new_has = token_hash(user)
     user&.authorization_key&.present? ? user.authorization_key.update!(token: new_has[:token], expiry: new_has[:expiry]) : AuthorizationKey.create!(token: new_has[:token], expiry: new_has[:expiry], authable: user)
-    token
+    new_has[:token]
   end
 
   def self.new_auth_key(user)
