@@ -48,7 +48,7 @@ module UserPanel
           end
         rescue StandardError => error
           Rails.logger.error "\n#{__FILE__}\nUser logout failed due to: #{error.message}"
-          error! failure_response_with_json("User logout failed due to: #{error.message}", HTTP_CODE[:NOT_ACCEPTABLE]), HTTP_CODE[:OK]
+          error! failure_response_with_json("User logout failed due to: #{error.message}", HTTP_CODE[:INTERNAL_SERVER_ERROR]), HTTP_CODE[:OK]
         end
       end
     end
