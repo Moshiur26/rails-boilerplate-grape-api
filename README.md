@@ -28,15 +28,25 @@ Things you may want to cover:
  
 ### Add gem for rapid API development
 ```
+# To handle api
 gem 'grape'
 gem 'grape-entity'
 gem 'grape-kaminari'
 gem 'grape_on_rails_routes'
+
+# To handle user authentication
 gem 'devise'
 gem 'devise-jwt'
+
+# For cross-origin requests
+gem 'rack-cors', '~> 1.1.1'
 ```
 
 ### Devise configuration
 * rails generate devise:install
 * config.action_mailer.default_url_options = { host: 'localhost', port: 3000 } `add into config/environments/development.rb:`
 * rails generate devise Admin
+
+### Rake-Cors configuration
+* Create new file cors.rb into config/initializers
+* Make configuration into cors.rb to give access required methods & headers

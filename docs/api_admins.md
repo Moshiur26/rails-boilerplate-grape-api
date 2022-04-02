@@ -37,7 +37,7 @@ end
 
 
 * ** Error Response:**
-* **Code:** `403`
+* **Code:** `200`
     * **If username or password not matched then:**
     * **Content:**
 ```json
