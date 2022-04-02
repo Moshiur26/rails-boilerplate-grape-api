@@ -12,7 +12,7 @@ module AdminPanel
           desc 'Log in to Admin.'
           route_setting :authentication, optional: true
   
-          post 'login' do
+          post :login do
             admin = Admin.find_by(email: params[:username])
             if admin&.valid_password?(params[:password])
               success_response_with_json(
@@ -26,8 +26,11 @@ module AdminPanel
                 }
               )
             else
-              failure_response_with_json("Invalid username or password", HTTP_CODE[:FORBIDDEN])
+              error! failure_response_with_json("Invalid username or password", HTTP_CODE[:FORBIDDEN]), HTTP_CODE[:OK]
             end
+          rescue StandardError => error
+            Rails.logger.error "\n#{__FILE__}\nAdmin login failed due to: #{error.message}"
+            error! failure_response_with_json("Admin login failed due to: #{error.message}", HTTP_CODE[:FORBIDDEN]), HTTP_CODE[:OK]
           end
         end
       end
